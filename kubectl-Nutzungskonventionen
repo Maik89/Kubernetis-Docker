@@ -1,0 +1,21 @@
+Verwenden in wiederverwendbaren Skriptenkubectl
+Für eine stabile Ausgabe in einem Skript:
+
+Fordern Sie eine der maschinenorientierten Ausgabeformen an, z. B. , , , oder .-o name-o json-o yaml-o go-template-o jsonpath
+Qualifizieren Sie die Version vollständig. Zum Beispiel. Dadurch wird sichergestellt, dass kubectl nicht die Standardversion verwendet, die sich im Laufe der Zeit ändern kann.jobs.v1.batch/myjob
+Verlassen Sie sich nicht auf Kontext, Präferenzen oder andere implizite Zustände.
+Unterressourcen
+Sie können das beta-Flag für kubectl-Befehle wie , und verwenden, um Unterressourcen für alle Ressourcen abzurufen und zu aktualisieren, die Unterstützen Sie sie. Derzeit werden nur die und Unterressourcen unterstützt.--subresourcegetpatcheditreplacestatusscale
+Für wird die Unterressource nicht unterstützt. Wenn Sie with verwenden und als Unterressource angeben, wird beim Befehl ein Fehler ausgegeben.kubectl editscale--subresourcekubectl editscale
+Der API-Vertrag für eine Unterressource ist identisch mit einer vollständigen Ressource. Beachten Sie beim Aktualisieren der Unterressource auf einen neuen Wert, dass die Unterressource möglicherweise von einem Controller auf einen anderen Wert abgeglichen.status
+Bewährte Vorgehensweisen
+kubectl run
+Um die Infrastruktur als Code zu erfüllen:kubectl run
+
+Markieren Sie das Bild mit einem versionsspezifischen Tag und verschieben Sie dieses Tag nicht in eine neue Version. Verwenden Sie z. B. , , anstelle von (Weitere Informationen finden Sie unter Best Practices für die Konfiguration).:v1234v1.2.3r03062016-1-4:latest
+Checken Sie im Skript nach einem Bild aus, das stark parametrisiert ist.
+Wechseln Sie zu Konfigurationsdateien, die in die Quellcodeverwaltung eingecheckt werden, um Features zu erhalten, die benötigt, aber nicht über Flags ausgedrückt werden können.kubectl run
+Sie können das Flag verwenden, um eine Vorschau des Objekts anzuzeigen, das an Ihren Cluster gesendet wird, ohne es wirklich zu übermitteln.--dry-run=client
+
+kubectl apply
+Sie können verwenden, um Ressourcen zu erstellen oder zu aktualisieren. Weitere Informationen zur Verwendung von kubectl apply zum Aktualisieren von Ressourcen finden Sie unter Kubectl Book.kubectl apply
